@@ -1,4 +1,5 @@
 package com.mycompany.poe;
+
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -9,9 +10,11 @@ public class POE {
     }
 
     public static boolean validatePassword(String password) {
-        if (password.length() < 8) return false;
-        boolean hasUpper   = Pattern.compile("[A-Z]").matcher(password).find();
-        boolean hasDigit   = Pattern.compile("[0-9]").matcher(password).find();
+        if (password.length() < 8) {
+            return false;
+        }
+        boolean hasUpper = Pattern.compile("[A-Z]").matcher(password).find();
+        boolean hasDigit = Pattern.compile("[0-9]").matcher(password).find();
         boolean hasSpecial = Pattern.compile("[^a-zA-Z0-9]").matcher(password).find();
         return hasUpper && hasDigit && hasSpecial;
     }
@@ -62,40 +65,43 @@ public class POE {
         String loginPassword = scanner.nextLine().trim();
 
         if (loginHandler.login(loginUsername, loginPassword)) {
-    System.out.println("Login successful. Welcome, " + loginUsername + "!");
-
-    // --- Post-login Menu ---
-    boolean running = true;
-    while (running) {
-        System.out.println("\n--- Main Menu ---");
-        System.out.println("1. Send message.");
-        System.out.println("2. Show recent messages.");
-        System.out.println("3. Quit.");
-        System.out.print("Enter your choice: ");
-
-        String input = scanner.nextLine().trim();
-
-        switch (input) {
-            case "1":
-                System.out.println("You selected Option One.");
-                // call your Option One method here
-                break;
-            case "2":
-                System.out.println("Coming soon.");
-                // call your Option Two method here
-                break;
-            case "3":
-                System.out.println("Goodbye, and good day!");
-                running = false;
-                break;
-            default:
-                System.out.println("Invalid choice. Please enter 1, 2, 3, or 0.");
+            System.out.println("Login successful. Welcome, " + loginUsername + "!");
+            showMenu(scanner);
+        } else {
+            System.out.println("Login failed: incorrect username or password.");
         }
-    }
-} else {
-    System.out.println("Login failed: incorrect username or password.");
-}
 
         scanner.close();
+    }
+
+    private static void showMenu(Scanner scanner) {
+        MessageManager messageManager = new MessageManager();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n--- Main Menu ---");
+            System.out.println("1. Send Messages");
+            System.out.println("2. Option Two");
+            System.out.println("3. Option Three");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            String input = scanner.nextLine().trim();
+
+            switch (input) {
+                case "1":
+                    messageManager.sendMessages(scanner);
+                    break;
+                case "2":
+                    System.out.println("Coming soon.");
+                    break;
+                case "3":
+                    System.out.println("Goodbye, and good day!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter 1, 2, 3, or 0.");
+            }
+        }
     }
 }
