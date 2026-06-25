@@ -83,6 +83,7 @@ public class POE {
             System.out.println("1. Send Messages");
             System.out.println("2. Option Two");
             System.out.println("3. Option Three");
+            System.out.println("4. Stored messages.");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -95,10 +96,19 @@ public class POE {
                 case "2":
                     System.out.println("Coming soon.");
                     break;
-                case "3":
+                case "3":    
+                    System.out.println("Coming soon.");
+                    break;
+                case "4":
+                    System.out.println("\"Message \" + messageNumber +\n" +
+"               \" | ID: \" + messageID +\n" +
+"               \" | To: \" + recipient +\n" +
+"               \" | Status: \" + status +\n" +
+"               \" | Content: \" + content;");
+                    break;
+                case "0":
                     System.out.println("Goodbye, and good day!");
                     running = false;
-                    break;
                 default:
                     System.out.println("Invalid choice. Please enter 1, 2, 3, or 0.");
             }
