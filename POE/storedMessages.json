@@ -1,0 +1,16 @@
+[
+    {
+        "messageNumber": 1,
+        "recipient": "0833241801",
+        "messageID": "EPFNNVDBOP",
+        "content": "Hi mom! Love you.",
+        "status": "Stored"
+    },
+    {
+        "messageNumber": 1,
+        "recipient": "0833241801",
+        "messageID": "TY9Z680VIW",
+        "content": "Bye mom! Hate you.",
+        "status": "Stored"
+    }
+]
