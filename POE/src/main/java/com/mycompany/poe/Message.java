@@ -11,12 +11,22 @@ public class Message {
     private final int messageNumber;
     private String status;
 
+    // Existing constructor - used when creating a brand new message
     public Message(int messageNumber, String recipient, String content) {
         this.messageNumber = messageNumber;
         this.recipient = recipient;
         this.content = content;
         this.status = "";
-        this.messageID = generateMessageID(); // Auto-generated on creation
+        this.messageID = generateMessageID();
+    }
+
+// New constructor - used when loading a message back from file
+    public Message(int messageNumber, String recipient, String content, String messageID, String status) {
+        this.messageNumber = messageNumber;
+        this.recipient = recipient;
+        this.content = content;
+        this.messageID = messageID;
+        this.status = status;
     }
 
     // --- 1. Randomly generate a 10-character alphanumeric message ID ---

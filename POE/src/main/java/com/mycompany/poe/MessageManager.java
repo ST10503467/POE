@@ -3,6 +3,12 @@ package com.mycompany.poe;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class MessageManager {
 
@@ -53,6 +59,7 @@ public class MessageManager {
                     break;
                 case "Stored":
                     storedMessages.add(message);
+                    saveStoredMessages();
                     break;
                 case "Deleted":
                     System.out.println("Message discarded.");
@@ -60,18 +67,66 @@ public class MessageManager {
             }
         }
     }
+    private static final String STORED_MESSAGES_FILE = "storedMessages.json";
 
-public void viewStoredMessages() {
-    if (storedMessages.isEmpty()) {
-        System.out.println("\nNo stored messages.");
-        return;
+// Call this once, e.g. at the start of showMenu(), to load any previously stored messages
+    public void loadStoredMessages() {
+        try {
+            if (!Files.exists(Paths.get(STORED_MESSAGES_FILE))) {
+                return; // No file yet - nothing to load
+            }
+            String content = new String(Files.readAllBytes(Paths.get(STORED_MESSAGES_FILE)));
+            if (content.trim().isEmpty()) {
+                return;
+            }
+            JSONArray jsonArray = new JSONArray(content);
+            storedMessages.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                Message msg = new Message(
+                        obj.getInt("messageNumber"),
+                        obj.getString("recipient"),
+                        obj.getString("content"),
+                        obj.getString("messageID"),
+                        obj.getString("status")
+                );
+                storedMessages.add(msg);
+            }
+        } catch (IOException e) {
+            System.out.println("Could not load stored messages: " + e.getMessage());
+        }
     }
 
-    System.out.println("\n--- Stored Messages ---");
-    for (Message msg : storedMessages) {
-        System.out.println("Message ID: " + msg.getMessageID() +
-                            " | Recipient: " + msg.getRecipient() +
-                            " | Content: " + msg.getContent());
+// Call this every time storedMessages changes (i.e. after a "Store" action)
+    private void saveStoredMessages() {
+        JSONArray jsonArray = new JSONArray();
+        for (Message msg : storedMessages) {
+            JSONObject obj = new JSONObject();
+            obj.put("messageNumber", msg.getMessageNumber());
+            obj.put("recipient", msg.getRecipient());
+            obj.put("content", msg.getContent());
+            obj.put("messageID", msg.getMessageID());
+            obj.put("status", msg.getStatus());
+            jsonArray.put(obj);
+        }
+        try (FileWriter writer = new FileWriter(STORED_MESSAGES_FILE)) {
+            writer.write(jsonArray.toString(4)); // pretty-printed with 4-space indent
+        } catch (IOException e) {
+            System.out.println("Could not save stored messages: " + e.getMessage());
+        }
     }
-}
+
+    public void viewStoredMessages() {
+        if (storedMessages.isEmpty()) {
+            System.out.println("\nNo stored messages.");
+            return;
+        }
+
+        System.out.println("\n--- Stored Messages ---");
+        for (Message msg : storedMessages) {
+            System.out.println("Message ID: " + msg.getMessageID()
+                    + " | Recipient: " + msg.getRecipient()
+                    + " | Content: " + msg.getContent());
+        }
+    }
 }

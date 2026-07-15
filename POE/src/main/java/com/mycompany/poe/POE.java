@@ -76,15 +76,14 @@ public class POE {
 
     private static void showMenu(Scanner scanner) {
         MessageManager messageManager = new MessageManager();
+        messageManager.loadStoredMessages();
         boolean running = true;
 
         while (running) {
             System.out.println("\n--- Main Menu ---");
             System.out.println("1. Send Messages");
-            System.out.println("2. Option Two");
-            System.out.println("3. Option Three");
-            System.out.println("4. Stored messages.");
-            System.out.println("0. Exit");
+            System.out.println("2. Stored messages.");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
 
             String input = scanner.nextLine().trim();
@@ -94,15 +93,9 @@ public class POE {
                     messageManager.sendMessages(scanner);
                     break;
                 case "2":
-                    System.out.println("Coming soon.");
-                    break;
-                case "3":
-                    System.out.println("Coming soon.");
-                    break;
-                case "4":
                     messageManager.viewStoredMessages();
                     break;
-                case "0":
+                case "3":
                     System.out.println("Goodbye, and good day!");
                     running = false;
                 default:
