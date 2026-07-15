@@ -9,6 +9,14 @@ public class POE {
         return username.length() <= 5 && username.contains("_");
     }
 
+    public static String checkUsername(String username) {
+        if (validateUsername(username)) {
+            return "Username successfully captured.";
+        } else {
+            return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.";
+        }
+    }
+
     public static boolean validatePassword(String password) {
         if (password.length() < 8) {
             return false;
