@@ -96,15 +96,11 @@ public class POE {
                 case "2":
                     System.out.println("Coming soon.");
                     break;
-                case "3":    
+                case "3":
                     System.out.println("Coming soon.");
                     break;
                 case "4":
-                    System.out.println("\"Message \" + messageNumber +\n" +
-"               \" | ID: \" + messageID +\n" +
-"               \" | To: \" + recipient +\n" +
-"               \" | Status: \" + status +\n" +
-"               \" | Content: \" + content;");
+                    messageManager.viewStoredMessages();
                     break;
                 case "0":
                     System.out.println("Goodbye, and good day!");

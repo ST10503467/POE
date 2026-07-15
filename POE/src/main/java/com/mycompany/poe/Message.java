@@ -4,18 +4,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Message {
-    private String messageID;
-    private String recipient;
-    private String content;
-    private int messageNumber;
+
+    private final String messageID;
+    private final String recipient;
+    private final String content;
+    private final int messageNumber;
     private String status;
 
     public Message(int messageNumber, String recipient, String content) {
         this.messageNumber = messageNumber;
-        this.recipient     = recipient;
-        this.content       = content;
-        this.status        = "";
-        this.messageID     = generateMessageID(); // Auto-generated on creation
+        this.recipient = recipient;
+        this.content = content;
+        this.status = "";
+        this.messageID = generateMessageID(); // Auto-generated on creation
     }
 
     // --- 1. Randomly generate a 10-character alphanumeric message ID ---
@@ -74,18 +75,32 @@ public class Message {
     }
 
     // --- Getters ---
-    public String getMessageID()     { return messageID; }
-    public String getRecipient()     { return recipient; }
-    public String getContent()       { return content; }
-    public int    getMessageNumber() { return messageNumber; }
-    public String getStatus()        { return status; }
+    public String getMessageID() {
+        return messageID;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public int getMessageNumber() {
+        return messageNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     @Override
     public String toString() {
-        return "Message " + messageNumber +
-               " | ID: " + messageID +
-               " | To: " + recipient +
-               " | Status: " + status +
-               " | Content: " + content;
+        return "Message " + messageNumber
+                + " | ID: " + messageID
+                + " | To: " + recipient
+                + " | Status: " + status
+                + " | Content: " + content;
     }
 }

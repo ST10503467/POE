@@ -1,6 +1,7 @@
 package com.mycompany.poe;
 
 public class Login {
+
     private String registeredUsername;
     private String registeredPassword;
 

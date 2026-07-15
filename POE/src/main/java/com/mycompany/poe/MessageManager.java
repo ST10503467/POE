@@ -60,4 +60,18 @@ public class MessageManager {
             }
         }
     }
+
+public void viewStoredMessages() {
+    if (storedMessages.isEmpty()) {
+        System.out.println("\nNo stored messages.");
+        return;
+    }
+
+    System.out.println("\n--- Stored Messages ---");
+    for (Message msg : storedMessages) {
+        System.out.println("Message ID: " + msg.getMessageID() +
+                            " | Recipient: " + msg.getRecipient() +
+                            " | Content: " + msg.getContent());
+    }
+}
 }
