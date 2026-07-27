@@ -9,6 +9,14 @@ public class POE {
         return username.length() <= 5 && username.contains("_");
     }
 
+    public static String checkUsername(String username) {
+        if (validateUsername(username)) {
+            return "Username successfully captured.";
+        } else {
+            return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.";
+        }
+    }
+
     public static boolean validatePassword(String password) {
         if (password.length() < 8) {
             return false;
@@ -76,15 +84,14 @@ public class POE {
 
     private static void showMenu(Scanner scanner) {
         MessageManager messageManager = new MessageManager();
+        messageManager.loadStoredMessages();
         boolean running = true;
 
         while (running) {
             System.out.println("\n--- Main Menu ---");
             System.out.println("1. Send Messages");
-            System.out.println("2. Option Two");
-            System.out.println("3. Option Three");
-            System.out.println("4. Stored messages.");
-            System.out.println("0. Exit");
+            System.out.println("2. Stored messages.");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
 
             String input = scanner.nextLine().trim();
@@ -94,19 +101,9 @@ public class POE {
                     messageManager.sendMessages(scanner);
                     break;
                 case "2":
-                    System.out.println("Coming soon.");
+                    messageManager.viewStoredMessages();
                     break;
-                case "3":    
-                    System.out.println("Coming soon.");
-                    break;
-                case "4":
-                    System.out.println("\"Message \" + messageNumber +\n" +
-"               \" | ID: \" + messageID +\n" +
-"               \" | To: \" + recipient +\n" +
-"               \" | Status: \" + status +\n" +
-"               \" | Content: \" + content;");
-                    break;
-                case "0":
+                case "3":
                     System.out.println("Goodbye, and good day!");
                     running = false;
                 default:
